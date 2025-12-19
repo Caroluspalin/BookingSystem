@@ -41,7 +41,7 @@ Open index.html in any modern web browser (Chrome, Safari, Firefox).
 Note: An internet connection is required for the Booking System and Chatbot to function (as they connect to Firebase).
 
 📂 Project Structure
-Plaintext
+
 /BookingSystem
 │
 ├── index.html       # Main landing page (Hero, Services, Booking, Chat)
@@ -51,6 +51,7 @@ Plaintext
 ├── admin.js         # Logic for fetching and deleting bookings (Admin)
 ├── chatData.js      # Data file containing Q&A for the chatbot
 └── README.md        # Project documentation
+
 🔐 Admin Access
 To access the admin panel, navigate to /admin.html in your browser.
 
