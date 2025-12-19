@@ -1,0 +1,317 @@
+/* --- Variables & Reset --- */
+:root {
+    --bg-color: #F5F5F7;
+    --text-main: #1D1D1F;
+    --text-muted: #86868B;
+    --accent: #C66B3D;
+    --accent-hover: #A8572E;
+    --border-radius: 12px;
+    --container-width: 1200px;
+    --header-height: 80px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', sans-serif; background: var(--bg-color); color: var(--text-main); line-height: 1.6; }
+h1, h2, h3, h4 { font-family: 'Playfair Display', serif; font-weight: 700; line-height: 1.2; }
+a { text-decoration: none; color: inherit; transition: 0.3s; }
+ul { list-style: none; }
+
+.container { max-width: var(--container-width); margin: 0 auto; padding: 0 20px; }
+
+/* Buttons */
+.btn-primary {
+    display: inline-block;
+    background: var(--accent);
+    color: white;
+    padding: 14px 32px;
+    border-radius: 30px;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.btn-primary:hover { background: var(--accent-hover); transform: translateY(-2px); }
+.btn-primary:disabled { background: var(--text-muted); cursor: not-allowed; transform: none; }
+
+/* --- Navbar --- */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: var(--header-height);
+    background: transparent; /* Läpinäkyvä aluksi */
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    transition: all 0.4s ease;
+}
+
+.navbar.scrolled {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+}
+
+.nav-container { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+.logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: var(--text-main); letter-spacing: 1px; }
+
+.nav-links { display: flex; gap: 40px; align-items: center; }
+.nav-links a { font-weight: 500; font-size: 0.95rem; }
+.nav-links a:hover { color: var(--accent); }
+
+.btn-nav { background: var(--text-main); color: white !important; padding: 10px 24px; border-radius: 20px; }
+.btn-nav:hover { background: var(--accent); }
+
+.hamburger { display: none; font-size: 1.5rem; cursor: pointer; }
+
+/* --- Hero Section (FIXED) --- */
+.hero {
+    height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Vasemmalle */
+    color: white;
+    overflow: hidden;
+}
+
+.hero-bg {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: -1;
+}
+
+.hero-bg img {
+    width: 100%; height: 100%; object-fit: cover;
+}
+
+/* Tämä tummentaa taustan tekstin takaa */
+.overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(to right, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,0.1) 100%);
+    z-index: 0;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2; /* Teksti päällimmäiseksi */
+    max-width: 600px;
+    padding-top: 60px;
+}
+
+.hero-content h1 {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.5); /* Lisää luettavuutta */
+}
+
+.hero-content p {
+    font-size: 1.25rem;
+    margin-bottom: 40px;
+    opacity: 0.95;
+    text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+}
+
+/* --- Features --- */
+.features { padding: 6rem 0; background: white; }
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; }
+.feature-card { text-align: center; padding: 20px; }
+.feature-card i { font-size: 2rem; color: var(--accent); margin-bottom: 20px; }
+
+/* --- Services --- */
+.services { padding: 8rem 0; }
+.services-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+.mission-text h2 { font-size: 3rem; margin-bottom: 20px; }
+.price-item { background: white; padding: 25px; margin-bottom: 20px; border-radius: var(--border-radius); box-shadow: 0 5px 20px rgba(0,0,0,0.05); }
+.price-header { display: flex; justify-content: space-between; font-weight: 600; font-size: 1.1rem; }
+.price { color: var(--accent); }
+.price-desc { color: var(--text-muted); font-size: 0.9rem; margin-top: 5px; }
+
+/* --- Gallery --- */
+.gallery { padding: 6rem 0; background: white; }
+.section-title { text-align: center; font-size: 2.5rem; margin-bottom: 50px; }
+.gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+.gallery-item { height: 300px; border-radius: var(--border-radius); overflow: hidden; cursor: pointer; }
+.gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+.gallery-item:hover img { transform: scale(1.05); }
+
+/* Lightbox */
+.lightbox { display: none; position: fixed; z-index: 2000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); justify-content: center; align-items: center; }
+.lightbox-content { max-width: 90%; max-height: 90%; }
+.close-lightbox { position: absolute; top: 20px; right: 40px; color: white; font-size: 40px; cursor: pointer; }
+
+/* --- Booking --- */
+.booking-section { padding: 8rem 0; background: #1D1D1F; color: white; }
+.booking-wrapper { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 40px; border-radius: 20px; max-width: 800px; margin: 0 auto; backdrop-filter: blur(10px); }
+.booking-header { text-align: center; margin-bottom: 40px; }
+.date-scroller { display: flex; gap: 15px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 30px; }
+.date-card { min-width: 80px; height: 100px; background: rgba(255,255,255,0.1); border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; border: 1px solid transparent; transition: 0.3s; }
+.date-card.selected { background: var(--accent); border-color: var(--accent); }
+.time-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 15px; margin-bottom: 30px; }
+.time-slot { background: rgba(255,255,255,0.1); padding: 10px; border-radius: 8px; text-align: center; cursor: pointer; transition: 0.3s; }
+.time-slot:hover { border: 1px solid var(--accent); }
+.time-slot.selected { background: var(--accent); }
+.selected-summary { text-align: center; margin-bottom: 20px; color: var(--accent); font-size: 1.1rem; }
+.btn-full { width: 100%; }
+
+/* --- Footer --- */
+footer { padding: 4rem 0 2rem; background: white; border-top: 1px solid #eee; }
+.footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; margin-bottom: 40px; }
+.copyright { text-align: center; color: var(--text-muted); font-size: 0.8rem; border-top: 1px solid #eee; padding-top: 20px; }
+
+/* --- Animations & Mobile --- */
+.fade-in { opacity: 0; transform: translateY(30px); transition: 0.8s ease; }
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 768px) {
+    .nav-links { position: fixed; right: -100%; top: 0; height: 100vh; background: white; flex-direction: column; justify-content: center; width: 80%; transition: 0.3s; box-shadow: -5px 0 15px rgba(0,0,0,0.1); }
+    .nav-links.active { right: 0; }
+    .hamburger { display: block; color: var(--text-main); }
+    .hero-content h1 { font-size: 2.8rem; }
+    .services-layout { grid-template-columns: 1fr; }
+}
+/* --- Chatbot --- */
+.chat-toggle-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    background: var(--accent);
+    color: white;
+    border-radius: 50%;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(198, 107, 61, 0.4);
+    transition: 0.3s;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chat-toggle-btn:hover {
+    transform: scale(1.1);
+    background: var(--accent-hover);
+}
+
+.chat-widget {
+    position: fixed;
+    bottom: 100px;
+    right: 30px;
+    width: 350px;
+    height: 500px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(20px);
+    transition: 0.3s ease;
+}
+
+.chat-widget.active {
+    opacity: 1;
+    pointer-events: all;
+    transform: translateY(0);
+}
+
+.chat-header {
+    background: var(--text-main);
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+}
+
+.close-chat {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.chat-messages {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    background: #f9f9f9;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Chat kuplat */
+.message {
+    max-width: 80%;
+    padding: 12px 16px;
+    border-radius: 18px;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    animation: popIn 0.3s ease;
+}
+
+.message.bot {
+    background: #E5E5EA; /* Apple gray */
+    color: black;
+    align-self: flex-start;
+    border-bottom-left-radius: 4px;
+}
+
+.message.user {
+    background: var(--accent);
+    color: white;
+    align-self: flex-end;
+    border-bottom-right-radius: 4px;
+}
+
+/* Valintanapit */
+.chat-options {
+    padding: 15px;
+    background: white;
+    border-top: 1px solid #eee;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.option-btn {
+    background: white;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    padding: 8px 14px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.option-btn:hover {
+    background: var(--accent);
+    color: white;
+}
+
+@keyframes popIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* Mobiiliresponsiivisuus */
+@media (max-width: 480px) {
+    .chat-widget {
+        width: 90%;
+        right: 5%;
+        bottom: 90px;
+        height: 60vh;
+    }
+}
