@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin | Palin Cuts</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <nav class="navbar" style="background: white; position: relative; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+        <div class="container nav-container">
+            <a href="index.html" class="logo" style="color: #1D1D1F;">PALIN CUTS <span style="font-size: 0.8rem; color: #C66B3D;">ADMIN</span></a>
+            <div class="nav-links">
+                <a href="index.html" style="color: #1D1D1F;">Back to Site</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="admin-section">
+        <div class="container">
+            <div class="admin-header">
+                <h1>Active Bookings</h1>
+                <p>Manage your upcoming appointments.</p>
+            </div>
+
+            <div id="booking-list" class="booking-list">
+                <div style="text-align:center; padding: 40px;">Loading bookings...</div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+    <script src="admin.js"></script>
+</body>
+</html>

@@ -315,3 +315,75 @@ footer { padding: 4rem 0 2rem; background: white; border-top: 1px solid #eee; }
         height: 60vh;
     }
 }
+
+/* --- Admin Panel Styles --- */
+.admin-section {
+    padding: 4rem 0;
+    background-color: #F5F5F7;
+    min-height: 80vh;
+}
+
+.admin-header {
+    margin-bottom: 40px;
+}
+
+.booking-list {
+    display: grid;
+    gap: 15px;
+    max-width: 600px;
+    margin: 0 auto; /* Keskitä lista */
+}
+
+.booking-card-admin {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: 0.3s;
+}
+
+.booking-card-admin:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.booking-info {
+    display: flex;
+    gap: 20px;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.booking-date {
+    color: #1D1D1F;
+}
+
+.booking-time {
+    color: var(--accent);
+    font-weight: 700;
+}
+
+.btn-delete {
+    background: #FF3B30; /* Apple Red */
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: 0.2s;
+}
+
+.btn-delete:hover {
+    background: #D70015;
+}
+
+.empty-state {
+    text-align: center;
+    color: #86868B;
+    font-size: 1.2rem;
+    padding: 40px;
+}
