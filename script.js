@@ -53,9 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
     closeLightbox.addEventListener('click', () => lightbox.style.display = 'none');
     lightbox.addEventListener('click', (e) => { if (e.target === lightbox) lightbox.style.display = 'none'; });
 
-    // --- 5. Firebase Booking Logic (OIKEA BACKEND) ---
-
-    // Sinun Firebase-asetuksesi
+    // --- 5. Firebase Booking Logic ---
     const firebaseConfig = {
         apiKey: "AIzaSyDylypakqSyuaih65mjBIKEiQXyR-UorMM",
         authDomain: "palin-cuts-booking.firebaseapp.com",
@@ -66,17 +64,15 @@ document.addEventListener('DOMContentLoaded', () => {
         measurementId: "G-C0Q0S40ZPM"
     };
 
-    // Alustetaan Firebase
     if (!firebase.apps.length) {
         firebase.initializeApp(firebaseConfig);
     }
     const db = firebase.firestore();
 
-    // Kalenterin asetukset
     const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     const timeSlots = ['10:00', '11:00', '12:00', '13:00', '14:30', '15:30', '16:30', '18:00'];
     
-    let selectedDateStr = null; // Tallennetaan muodossa "2025-12-20"
+    let selectedDateStr = null;
     let selectedDisplayDate = null;
     let selectedTime = null;
 
@@ -85,19 +81,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const summaryText = document.getElementById('booking-summary');
     const confirmBtn = document.getElementById('confirm-btn');
 
-    // Generoidaan päivät (14 päivää eteenpäin)
     const today = new Date();
     for (let i = 0; i < 14; i++) {
         const nextDate = new Date(today);
         nextDate.setDate(today.getDate() + i);
-        if (nextDate.getDay() === 0) continue; // Skip Sunday
+        if (nextDate.getDay() === 0) continue; 
 
         const dayName = days[nextDate.getDay()];
         const dayNumber = nextDate.getDate();
         const month = nextDate.getMonth() + 1;
         const year = nextDate.getFullYear();
         
-        // Luodaan ID muodossa "2025-12-20" tietokantaa varten
         const dateId = `${year}-${month}-${dayNumber}`; 
         const displayDate = `${dayName} ${dayNumber}.${month}.`;
 
@@ -106,34 +100,29 @@ document.addEventListener('DOMContentLoaded', () => {
         card.innerHTML = `<span style="font-size:0.8rem; opacity:0.8">${dayName}</span><span style="font-size:1.5rem; font-weight:700">${dayNumber}</span>`;
         
         card.addEventListener('click', () => {
-            // 1. UI Valinta
             document.querySelectorAll('.date-card').forEach(c => c.classList.remove('selected'));
             card.classList.add('selected');
             
-            // 2. Tallenna valinta muuttujiin
             selectedDateStr = dateId;
             selectedDisplayDate = displayDate;
-            selectedTime = null; // Nollataan aika kun päivä vaihtuu
+            selectedTime = null; 
             
-            // 3. Lataa vapaat ajat tietokannasta!
             loadAvailability(dateId);
-            
             updateSummary();
         });
         dateContainer.appendChild(card);
     }
 
-    // Generoidaan aikapaikat
     function renderTimeSlots() {
-        timeContainer.innerHTML = ''; // Tyhjennä vanhat
+        timeContainer.innerHTML = '';
         timeSlots.forEach(time => {
             const slot = document.createElement('div');
             slot.className = 'time-slot';
             slot.innerText = time;
-            slot.dataset.time = time; // Tunniste hakuun
+            slot.dataset.time = time;
             
             slot.addEventListener('click', () => {
-                if (slot.classList.contains('disabled')) return; // Älä tee mitään jos varattu
+                if (slot.classList.contains('disabled')) return;
 
                 document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
                 slot.classList.add('selected');
@@ -144,13 +133,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- TIETOKANTAHAKU (Lataa varatut ajat) ---
     function loadAvailability(dateId) {
-        renderTimeSlots(); // Piirrä napit puhtaalta pöydältä
+        renderTimeSlots();
         summaryText.innerText = "Checking availability...";
         confirmBtn.disabled = true;
 
-        // Kysytään Firebaselta varaukset tälle päivälle
         db.collection('bookings')
             .where('date', '==', dateId)
             .get()
@@ -158,7 +145,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 querySnapshot.forEach((doc) => {
                     const bookedTime = doc.data().time;
                     
-                    // Etsi oikea nappi ja disabloi se
                     const slotElement = document.querySelector(`.time-slot[data-time="${bookedTime}"]`);
                     if (slotElement) {
                         slotElement.classList.add('disabled');
@@ -190,12 +176,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- VARAUKSEN TALLENNUS ---
     confirmBtn.addEventListener('click', () => {
         confirmBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Booking...';
         confirmBtn.disabled = true;
 
-        // Lähetetään tiedot pilveen
         db.collection('bookings').add({
             date: selectedDateStr,
             time: selectedTime,
@@ -205,7 +189,7 @@ document.addEventListener('DOMContentLoaded', () => {
             confirmBtn.style.backgroundColor = '#4CAF50';
             confirmBtn.innerText = 'Confirmed!';
             alert(`SUCCESS! Your booking for ${selectedDisplayDate} at ${selectedTime} is saved.`);
-            location.reload(); // Ladataan sivu uudestaan -> aika on nyt harmaa
+            location.reload(); 
         })
         .catch((error) => {
             console.error("Error adding document: ", error);
@@ -222,7 +206,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const messagesContainer = document.getElementById('chat-messages');
     const optionsContainer = document.getElementById('chat-options');
 
-    // Toggle Chat
     chatToggle.addEventListener('click', () => {
         chatWidget.classList.toggle('active');
         if (chatWidget.classList.contains('active') && messagesContainer.children.length === 0) {
@@ -258,12 +241,12 @@ document.addEventListener('DOMContentLoaded', () => {
     function handleOptionClick(item) {
         addMessage(item.question, 'user');
         scrollToBottom();
-        optionsContainer.innerHTML = ''; // Piilota napit hetkeksi
+        optionsContainer.innerHTML = ''; 
         
         setTimeout(() => {
             addMessage(item.answer, 'bot');
             scrollToBottom();
-            renderOptions(); // Näytä napit uudestaan
+            renderOptions(); 
         }, 600);
     }
 
