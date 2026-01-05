@@ -41,7 +41,8 @@ Open index.html in any modern web browser (Chrome, Safari, Firefox).
 Note: An internet connection is required for the Booking System and Chatbot to function (as they connect to Firebase).
 
 📂 /BookingSystem
-│
+
+```text
 ├── index.html      # Main landing page (Hero, Services, Booking, Chat)
 ├── admin.html      # Admin dashboard for managing bookings
 ├── style.css       # Global styling, animations, and responsive rules
